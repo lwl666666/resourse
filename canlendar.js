@@ -19,19 +19,28 @@ $(document).ready(function(){
 	})();
 	renderHtml();
 	bindEvent();
+	$(monthSelect).change(function(){
+		debugger;
+		dateObj.setDate(new Date($(monthSelect).val(),dateObj.getMonth(),1));
+		renderHtml();
+		$(monthSelect).val(dateObj.getYear());
+	});
 	function renderHtml(){
-	debugger;
-	var tds =$("td");
-	var _year = dateObj.getYear();
-	var _month = dateObj.getMonth();
-	$("#dateTitle").text(getDateStr(dateObj.getDate()).substr(0,6));
-	var firstDay = new Date(_year,_month,1);
-	var nowDay;
-	var dateStr;
-	for(var i = 0;i< tds.length;i++){
-		nowDay = new Date (_year,_month,i-firstDay.getDay()+1);
-		tds[i].innerText=nowDay.getDate();
-		}
+		debugger;
+		var _year = dateObj.getYear();
+		var _month = dateObj.getMonth();
+		$("#dateTitle").text(getDateStr(dateObj.getDate()).substr(0,6));
+		var firstDay = new Date(_year,_month,1);
+		var nowDay;
+		var dateStr;
+		$("td").each(function(index){
+			nowDay = new Date (_year,_month,index-firstDay.getDay()+1);
+			$(this).text(nowDay.getDate())
+		});
+		$("option").each(function(index){
+			$(this).text(_year+index-2);
+			$(this).val(_year+index-2);
+		});
 	}
 
 	function getDateStr(date) {
