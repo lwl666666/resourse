@@ -1,0 +1,26 @@
+body{
+background:#ccc;
+}
+.calendar{
+	width:1000px;
+	margin:0 auto;
+	background:#fff;
+	padding:1em;
+	box-shadow:10px 10px 5px #888888;
+}
+
+table,td,th{
+	border-collapse:collapse;
+}
+td{
+	text-align:right;
+	padding:1em;	
+	border:1px solid black;
+}
+th{
+	padding:1em;	
+	border:1px solid black;
+}
+.calendar_table{
+	width:100%;	
+}
