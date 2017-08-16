@@ -1,0 +1,11 @@
+3、水平居中跳动的问题
+滑动块导致
+1.html{
+	overflow-y:scroll;
+}
+2.caontainer{
+	padding-left:calc(100vw - 100%); 100vw浏览器宽度 100%可用内容宽度
+}
+
+4、overflow父级,内部绝对定位，overflow失效
+绝对定位元素不总是被父级元素overflow属性剪裁，尤其当overflow在绝对定位元素及其包含块（含position:relative/absolute/fixed声明的父级元素）之间的时候。
