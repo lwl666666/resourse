@@ -1,0 +1,88 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Preload</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+		}
+		body{
+			background-color: 333;
+		}
+		.box{
+			width: 1200px;
+			margin: 0 auto;
+		}
+		.pageControl{
+			margin-top: 50px;
+			text-align: center;
+		}
+		.btn{
+			border: 1px #eee solid;
+			background-color: #fff;
+			padding: 5px;
+		}
+		.loading{
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #fff;
+		}
+		.progress{
+			font-size: 50px;
+			text-align: center;
+			margin-top: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="15.jpg" width="1200px">
+	</div>
+	<div class="pageControl">
+		<a class="btn" href="javascript:;" data-control="pre"><span>上一页</span></a>
+		<a class="btn" href="javascript:;" data-control="next"><span>下一页</span></a>
+	</div>
+	<div class="loading">
+		<p class="progress">0%</p>
+	</div>
+	<script type="text/javascript">
+	var imgs =[
+		"15.jpg",
+		"23.jpg",
+		"26.jpg",
+		"27.jpg",
+		"29.jpg",
+		"30.jpg",
+		"62.jpeg",
+	];
+	var index = 0,
+		$progress = $(".progress");
+		count = 0;
+
+	$.each(imgs,function(i,src){
+		var imgObj = new Image();
+		$(imgObj).on("load error",function(){
+			count++
+			$progress.html(Math.round(count/imgs.length*100)+"%");
+			if(count >= imgs.length){
+				$(".loading").hide();
+			}
+		});
+		imgObj.src = src;
+	});
+	$(".btn").on("click",function(){
+		debugger;
+		if("pre" === $(this).data("control")){
+			index = Math.max(0,--index);
+		}else{
+			index = Math.min(imgs.length,++index);
+		}
+		$(".box img").attr("src",imgs[index]);
+	})
+	</script>
+</body>
+</html>
