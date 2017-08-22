@@ -3,6 +3,7 @@
 	<meta charset="utf-8">
 	<title>Preload</title>
 	<script type="text/javascript" src="jquery.min.js"></script>
+	<script src="preload.js" type="text/javascript"></script>
 	<style type="text/css">
 		a{
 			text-decoration: none;
@@ -40,7 +41,7 @@
 </head>
 <body>
 	<div class="box">
-		<img src="15.jpg" width="1200px">
+		<img src="img/01.jpg" width="1200px">
 	</div>
 	<div class="pageControl">
 		<a class="btn" href="javascript:;" data-control="pre"><span>上一页</span></a>
@@ -50,30 +51,36 @@
 		<p class="progress">0%</p>
 	</div>
 	<script type="text/javascript">
-	var imgs =[
-		"15.jpg",
-		"23.jpg",
-		"26.jpg",
-		"27.jpg",
-		"29.jpg",
-		"30.jpg",
-		"62.jpeg",
-	];
+	var imgs = [];
+	for(var i=0;i<16;i++){
+		imgs.push("img/0"+i+".jpg");
+	}
 	var index = 0,
-		$progress = $(".progress");
 		count = 0;
-
-	$.each(imgs,function(i,src){
-		var imgObj = new Image();
-		$(imgObj).on("load error",function(){
-			count++
-			$progress.html(Math.round(count/imgs.length*100)+"%");
-			if(count >= imgs.length){
+		$progress = $(".progress");
+		$.preload(imgs,{
+			order:"unordered",
+			each:function(count){
+				debugger;
+				$progress.html(Math.round(count/imgs.length*100)+"%");
+			},
+			all:function(){
 				$(".loading").hide();
 			}
-		});
-		imgObj.src = src;
-	});
+		})
+	// 	count = 0;
+
+	// $.each(imgs,function(i,src){
+	// 	var imgObj = new Image();
+	// 	$(imgObj).on("load error",function(){
+	// 		count++
+	// 		$progress.html(Math.round(count/imgs.length*100)+"%");
+	// 		if(count >= imgs.length){
+	// 			$(".loading").hide();
+	// 		}
+	// 	});
+	// 	imgObj.src = src;
+	// });
 	$(".btn").on("click",function(){
 		debugger;
 		if("pre" === $(this).data("control")){
