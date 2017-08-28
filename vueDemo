@@ -1,0 +1,160 @@
+<html>
+<head>
+	<title>Vue Demo</title>
+	<script type="text/javascript" src="vue.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		body{
+			background: #eee;
+		}
+		.page{
+			width: 1170px;
+			margin:  0 auto;
+		}
+		.demo{
+			padding: 20px;
+			box-shadow: 5px 5px 5px #aaa;
+			border-radius: 10px;
+			margin-top: 30px;
+			background: #fff;
+		}
+		.demo h2{
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<h1>Vue Demo</h1>
+		<div class="demo">
+			<h2>文本 {{}} v-text v-html</h2>
+			<div id="demo1">
+				<p>{{ message1 }}</p>
+				<p v-text="message2"></p>
+				<p v-html="message2"></p>
+			</div>
+		</div>
+		<div class="demo">
+			<h2>v-bind</h2>
+			<div id="demo2">
+				<p v-bind:title="message">鼠标悬停</p>
+			</div>
+		</div>
+		<div class="demo">
+			<h2>v-if</h2>
+			<div id="demo3">
+				<div v-if="isShow">
+					这一段被显示
+				</div>
+				<div v-if="!isShow">
+					这一段不被显示
+				</div>
+			</div>
+		</div>
+		<div class="demo">
+			<h2>v-for</h2>
+			<div id="demo4">
+				<ul>
+					<li v-for="person in persons">
+						<span>姓名:{{person.name}},</span>
+						<span>年龄:{{person.age}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="demo">
+			<h2>v-on</h2>
+			<div id="demo5">
+				<p v-text="message"></p>
+				<button v-on:click="reverseMessage">逆转字符串</button>
+			</div>
+		</div>
+		<div class="demo">
+			<h2>v-model</h2>
+			<div id="demo6">
+				<p v-text="message"></p>
+				<input v-model="message" type="text">
+			</div>
+		</div>
+		<div class="demo">
+			<h2>vue component</h2>
+			<div id="demo7">
+				<todo-items v-bind:todo-items="todoItems">
+				</todo-items>
+				<todo-item v-for="todoItem in todoItems" v-bind:todo-item="todoItem" v-bind:key="todoItem.id">
+				</todo-item>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var demo1 = new Vue({
+		el:"#demo1",
+		data:{
+			message1:"This is a Vue Hello World",
+			message2:"<a href='#'>hello world</a>"
+		}
+	});
+	var demo2 = new Vue({
+		el:"#demo2",
+		data:{
+			message:"页面加载于" + new Date().toLocaleString()
+		}
+	}); 
+	var demo3 = new Vue({
+		el:"#demo3",
+		data:{
+			isShow:true
+		}
+	});
+	var demo4 = new Vue({
+		el:"#demo4",
+		data:{
+			persons:[
+			{name:"张三",age:"20"},
+			{name:"李四",age:"21"},
+			{name:"王二",age:"22"}]
+		}
+	});
+	var demo5 = new Vue({
+		el:"#demo5",
+		data:{
+			message:"hello world"
+		},
+		methods:{
+			reverseMessage:function(){
+				this.message = this.message.split("").reverse().join("");
+			}
+		}
+	});
+	var demo6 = new Vue({
+		el:"#demo6",
+		data:{
+			message:""
+		}
+	});
+	Vue.component("todo-items",{
+		props:["todo-items"],
+		template:"<ul><li v-for='item in todoItems'>{{item.name}},{{item.price}}</li></ul>"
+	});
+	Vue.component("todo-item",{
+		props:["todo-item"],
+		template:"<div>{{todoItem.name}},{{todoItem.price}}</div>"
+	});
+	var demo7 = new Vue({
+		el:"#demo7",
+		data:{
+			todoItems:[
+			{id:1,name:"香蕉",price:"24元"},
+			{id:2,name:"苹果",price:"20元"},
+			{id:3,name:"葡萄",price:"21元"}]
+		}
+	});
+	</script>
+</body>
+</html>
