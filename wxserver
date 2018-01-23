@@ -1,0 +1,36 @@
+var express = require ("express");
+var router = express.Router();
+var appData = require("../data.json");
+router.get("/seller",function(req,res){
+	res.json({
+		returnCode : 0,
+		data : appData.seller		
+	})
+});
+router.get("/goods",function(req,res){
+	res.json({
+		returnCode : 0,
+		data : appData.goods		
+	})
+});
+router.get("/ratings",function(req,res){
+	res.json({
+		returnCode : 0,
+		data : appData.ratings		
+	})
+});
+
+module.exports = router;
+
+
+
+
+
+var app = require ("express");
+var router = require ("router");
+
+app.use("/api",router);
+var server = app.listen(4000,function(){
+	var host = server.address().address;
+	var port = server.address().port;
+})
